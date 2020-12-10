@@ -2,29 +2,29 @@ name: CI
 
 on: 
   pull_request:
-   branches:
+    branches:
      - main
   push:
     branches:
       - main 
       - develop
- jobs:
-   build:
+jobs:
+    build:
      runs-on: ubuntu-20.04
      steps:
        - name: checkout project
-        uses: actions/checkout@v2
-        name: setup node version
+         uses: actions/checkout@v2
+       - name: setup node version
        - uses: actions/setup-node@v1
-        with:
+         with:
             node-version: '12'
-         - name: Resolve dependencies
-          run: npm ci
+       - name: Resolve dependencies
+         run: npm ci
 
-         - name: running tests
-          run: npm test -- --coverage
-          env:
+       - name: running tests
+         run: npm test -- --coverage
+         env:
             CI: true
-         - name: build project
-           if: github.event.name == 'push'
-           run: npm run build 
+       - name: build project
+         if: github.event_name == 'push'
+         run: npm run build 
